@@ -1,0 +1,24 @@
+{:deps  true #_{:aliases [:cljs-dev :ui :peer]}
+ :nrepl {:host "0.0.0.0"
+         :port #shadow/env ["SHADOWCLJS_NREPL_PORT" :as :int :default 8899]}
+ :http {:port #shadow/env ["SHADOWCLJS_HTTP_PORT" :as :int :default 9630]
+        :host "0.0.0.0"}
+ :builds {:baked-potatoes {:target :node-script
+                           :main Mayfeld.baked-potatoes-main/-main
+                           :output-to "out/baked-potatoes-main.js"
+                           :compiler-options {:optimizations :simple
+                                              :infer-externs false #_:auto
+                                              :stable-names true
+                                              :recompile-dependents true
+                                              :source-maps true
+                                              :closure-defines {}
+                                              :cross-chunk-method-motion false}
+                           :js-options {:js-provider :shadow
+                                        :keep-native-requires true
+                                        :keep-as-require #{}}
+                           :devtools {:repl-init-ns Mayfeld.baked-potatoes-main
+                                      :repl-pprint true
+                                      :autobuild true
+                                      :devtools-url #shadow/env ["SHADOWCLJS_DEVTOOLS_URL" :default "http://localhost:9630"]
+                                      :after-load Mayfeld.baked-potatoes-main/reload
+                                      :http-port #shadow/env ["SHADOWCLJS_DEVTOOLS_HTTP_PORT" :as :int :default 9500]}}}}
