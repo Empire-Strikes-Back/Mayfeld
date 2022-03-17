@@ -12,7 +12,10 @@ watch(){
 }
 
 repl(){
-  shadow cljs-repl $1
+  shadow clj-repl
+  # (shadow/watch :baked-potatoes)
+  # (shadow/repl :baked-potatoes)
+  # :repl/quit
 }
 
 "$@"
